@@ -1,6 +1,6 @@
 const express = require('express');
 app = express();
-
+const routes = require('./routers/categories')
 
 
 

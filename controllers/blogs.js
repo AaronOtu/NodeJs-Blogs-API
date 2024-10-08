@@ -1,6 +1,11 @@
+const Blogs = require("../models/blogs")
+
+
 const GetAllBlogs = async (req, res) => {
   try {
-    res.status(200).send("Getting all blogs ...!");
+    const blogs = await Blogs.find({})
+
+    res.status(200).send({blogs});
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -8,7 +13,8 @@ const GetAllBlogs = async (req, res) => {
 
 const Createblog = async (req, res) => {
   try {
-    res.status(200).send("Creating blog ...!");
+    const blogs = await Blogs.create(req.body)
+    res.status(201).json({blogs});
   } catch (err) {
     res.status(500).send(err.message);
   }

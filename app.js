@@ -1,6 +1,8 @@
 const express = require('express');
 app = express();
 const blogs = require('./routers/blogs')
+const categories= require('./routers/categories')
+
 
 app.use(express.json());
 
@@ -11,6 +13,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/blogs', blogs)
+app.use('/categories',categories)
 
 
 app.listen(port, ()=>{

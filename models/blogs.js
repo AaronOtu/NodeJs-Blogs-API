@@ -1,13 +1,10 @@
-const moongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const BlogsSchema = new moongoose.Schema ({
-  postMessage:{
-    type:String,
-    required:true,
-    trim:true
+const BlogsSchema = new mongoose.Schema({
+  title: { type: String, required: true, trim: true },
+  body: { type: String, required: true, trim: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
 
-  }
-})
-
-
-module.exports = moongoose.model("Blogs", BlogsSchema)
+module.exports = mongoose.model("Blogs", BlogsSchema);

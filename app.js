@@ -1,5 +1,6 @@
 const express = require("express");
 app = express();
+const users = require("./routers/users");
 const blogs = require("./routers/blogs");
 const categories = require("./routers/categories");
 const connectDB = require("./db/connection");
@@ -13,6 +14,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to my blogs!");
 });
 
+app.use("/users", users)
 app.use("/blogs", blogs);
 app.use("/categories", categories);
 

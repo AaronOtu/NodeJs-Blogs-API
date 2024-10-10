@@ -12,10 +12,23 @@ const GetAllBlogs = async (req, res) => {
 
 const Createblog = async (req, res) => {
   try {
-    const blogs = await Blogs.create(req.body);
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const blogs = await Blogs.create({
+      ...req.body,
+      image: `/uploads/${req.file.filename}`,
+    });
+
     res.status(201).json({ blogs });
   } catch (err) {
-    res.status(500).send(err.message);
+
+    if (!res.headersSent) {
+      res.status(500).send(err.message);
+    } else {
+      console.error("Headers already sent, can't send response");
+    }
   }
 };
 
@@ -23,6 +36,9 @@ const GetBlog = async (req, res) => {
   try {
     const { id: postId } = req.params;
     const blogs = await Blogs.findById(postId);
+    if(!blogs){
+      res.status(404).json({message: 'Blog not found'})
+    }
     res.status(200).json({ blogs });
   } catch (err) {
     res.status(500).send(err.message);

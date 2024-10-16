@@ -7,6 +7,7 @@ const connectDB = require("./db/connection");
 
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const port = 4000;
 

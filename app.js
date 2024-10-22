@@ -4,10 +4,12 @@ const users = require("./routers/users");
 const blogs = require("./routers/blogs");
 const categories = require("./routers/categories");
 const connectDB = require("./db/connection");
+const  secret = require("./middleware/secret")
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(secret)
 
 const port = 4000;
 

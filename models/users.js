@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken"); // Make sure to install this package
+const jwt = require("jsonwebtoken"); 
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Hash the password before saving
+
 UserSchema.pre("save", function(next) {
   if (this.isModified("password")) {
     bcrypt.hash(this.password, 8, (err, hash) => {

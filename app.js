@@ -10,7 +10,7 @@ const  secret = require("./middleware/secret")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(secret)
+// app.use(secret)
 
 const port = 4000;
 

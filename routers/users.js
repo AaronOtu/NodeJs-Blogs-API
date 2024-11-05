@@ -1,4 +1,5 @@
 const express = require('express');
+const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 const{RegisterUser,
       LoginUser,
@@ -11,6 +12,7 @@ const{RegisterUser,
 
 router.route('/register').post(RegisterUser)
 router.route('/login').post(LoginUser)
+router.use(authMiddleware)
 router.route("/:id").get(GetUserProfile).delete(DeleteUserAccount).put(UpdateUserAccount);
 
 

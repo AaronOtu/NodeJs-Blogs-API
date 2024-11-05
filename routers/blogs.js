@@ -10,7 +10,8 @@ const {
   DeleteBlog
 } = require("../controllers/blogs");
 
-router.route("/").get(GetAllBlogs).post(authMiddleware,upload.single('image'),Createblog);
+router.use(authMiddleware);
+router.route("/").get(GetAllBlogs).post(upload.single('image'),Createblog);
 router.route("/:id").get(GetBlog).put(UpdateBlog).delete(DeleteBlog);
 
 module.exports = router;

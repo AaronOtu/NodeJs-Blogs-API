@@ -1,5 +1,6 @@
 const Comment = require("../models/comments");
 
+
 const GetAllComments = async (req, res) => {
   try {
     const comments = await Comment.find({});
@@ -8,6 +9,7 @@ const GetAllComments = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 const GetComments = async (req, res) => {
   try {
@@ -22,6 +24,7 @@ const GetComments = async (req, res) => {
   }
 };
 
+
 const CreateComment = async (req, res) => {
   try {
     const comments = await Comment.create(req.body);
@@ -30,6 +33,7 @@ const CreateComment = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 const UpdateComment = async (req, res) => {
   try {
@@ -53,6 +57,7 @@ const UpdateComment = async (req, res) => {
   }
 };
 
+
 const DeleteComment = async (req, res) => {
   try {
     const { id: commentId } = req.params;
@@ -67,6 +72,7 @@ const DeleteComment = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 module.exports = {
   GetAllComments,

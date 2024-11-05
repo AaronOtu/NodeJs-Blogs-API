@@ -1,6 +1,7 @@
 const Blogs = require("../models/blogs");
 const Category = require("../models/categories");
 
+
 const GetAllBlogs = async (req, res) => {
   try {
     const blogs = await Blogs.find({});
@@ -10,6 +11,7 @@ const GetAllBlogs = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 const Createblog = async (req, res) => {
   try {
@@ -45,6 +47,7 @@ const Createblog = async (req, res) => {
   }
 };
 
+
 const GetBlog = async (req, res) => {
   try {
     const { id: postId } = req.params;
@@ -57,6 +60,8 @@ const GetBlog = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
+
 const UpdateBlog = async (req, res) => {
   try {
     const { id: postId } = req.params;
@@ -73,6 +78,7 @@ const UpdateBlog = async (req, res) => {
   }
 };
 
+
 const DeleteBlog = async (req, res) => {
   try {
     const { id: postId } = req.params;
@@ -87,6 +93,7 @@ const DeleteBlog = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 module.exports = {
   GetAllBlogs,

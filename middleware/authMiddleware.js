@@ -6,6 +6,7 @@ const Users = require("../models/users");
 
 const JWT_SECRET = process.env.JWT_SECRET; 
 
+
 const authMiddleware = async (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
   

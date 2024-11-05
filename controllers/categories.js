@@ -1,5 +1,6 @@
 const Category = require("../models/categories");
 
+
 const GetAllCategories = async (req, res) => {
   try {
     const categories = await Category.find({});
@@ -9,6 +10,7 @@ const GetAllCategories = async (req, res) => {
   }
 };
 
+
 const CreateCategory = async (req, res) => {
   try {
     const categories = await Category.create(req.body);
@@ -17,6 +19,7 @@ const CreateCategory = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 const GetCategory = async (req, res) => {
   try {
@@ -30,6 +33,7 @@ const GetCategory = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 const UpdateCategory = async (req, res) => {
   try {
@@ -47,6 +51,7 @@ const UpdateCategory = async (req, res) => {
   }
 };
 
+
 const DeleteCategory = async (req, res) => {
   try {
     const {id: categoryId} = req.params
@@ -59,6 +64,7 @@ const DeleteCategory = async (req, res) => {
     res.status(500).send(err.message);
   }
 };
+
 
 module.exports = {
   GetAllCategories,

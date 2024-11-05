@@ -1,4 +1,5 @@
 const Blogs = require("../models/blogs");
+const Category = require("../models/categories");
 
 const GetAllBlogs = async (req, res) => {
   try {
@@ -16,14 +17,26 @@ const Createblog = async (req, res) => {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    const blogs = await Blogs.create({
-      ...req.body,
+    const { title, body, category: categoryName } = req.body;
+    if (!title || !body || !categoryName) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const category = await Category.findOne({ name: categoryName });
+    if (!category) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+
+    const blog = await Blogs.create({
+      title,
+      body,
+      author: req.user._id,
+      category: category._id,
       image: `/uploads/${req.file.filename}`,
     });
 
-    res.status(201).json({ blogs });
+    res.status(201).json({ blog });
   } catch (err) {
-
     if (!res.headersSent) {
       res.status(500).send(err.message);
     } else {
@@ -36,8 +49,8 @@ const GetBlog = async (req, res) => {
   try {
     const { id: postId } = req.params;
     const blogs = await Blogs.findById(postId);
-    if(!blogs){
-      res.status(404).json({message: 'Blog not found'})
+    if (!blogs) {
+      res.status(404).json({ message: "Blog not found" });
     }
     res.status(200).json({ blogs });
   } catch (err) {

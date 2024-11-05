@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 app = express();
 const users = require("./routers/users");
 const blogs = require("./routers/blogs");
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 app.use("/users", users)
 app.use("/blogs", blogs);
 app.use("/categories", categories);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const start = async () => {
   try {

@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken"); // Make sure to install this package
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
@@ -10,16 +11,30 @@ const UserSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-UserSchema.pre("save", function(next){
+// Hash the password before saving
+UserSchema.pre("save", function(next) {
   if (this.isModified("password")) {
     bcrypt.hash(this.password, 8, (err, hash) => {
       if (err) return next(err);
       this.password = hash;
       next();
     });
+  } else {
+    next();
   }
 });
 
-UserSchema;
+// Method to compare password for login
+UserSchema.methods.comparePassword = function(plainPassword) {
+  return bcrypt.compare(plainPassword, this.password);
+};
+
+// Method to generate JWT token for the user
+UserSchema.methods.generateAuthToken = function() {
+  const token = jwt.sign({ _id: this._id, email: this.email }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+  return token;
+};
 
 module.exports = mongoose.model("Users", UserSchema);
